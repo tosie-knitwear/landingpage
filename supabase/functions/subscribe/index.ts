@@ -1,7 +1,7 @@
 import { createClient } from "jsr:@supabase/supabase-js@2";
 import { corsHeaders, handleOptions } from "../_shared/cors.ts";
 import { sendDoiEmail } from "../_shared/email.ts";
-import { verifyTurnstile } from "../_shared/turnstile.ts";
+import { verifyAltcha } from "../_shared/altcha.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -27,7 +27,7 @@ Deno.serve(async (req) => {
     email?: string;
     website?: string;
     source?: string;
-    turnstile_token?: string;
+    altcha?: string;
   };
   try {
     payload = await req.json();
@@ -48,8 +48,8 @@ Deno.serve(async (req) => {
   const ua = req.headers.get("user-agent") ?? null;
   const source = payload.source ?? null;
 
-  // Bot-Schutz: Turnstile-Token serverseitig prüfen, bevor irgendetwas passiert.
-  if (!(await verifyTurnstile(payload.turnstile_token ?? "", ip))) {
+  // Bot-Schutz: Altcha-Proof-of-Work serverseitig prüfen, bevor etwas passiert.
+  if (!(await verifyAltcha(payload.altcha ?? ""))) {
     return json({ error: "captcha_failed" }, 400);
   }
 

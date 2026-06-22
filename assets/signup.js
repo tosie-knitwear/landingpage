@@ -24,10 +24,12 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
-  // Cloudflare Turnstile rendert ein verstecktes Feld cf-turnstile-response.
-  const turnstileToken = form["cf-turnstile-response"]?.value || "";
-  if (!turnstileToken) {
-    setStatus("Bitte den Bot-Schutz abschließen.", "error");
+  // Altcha rendert ein verstecktes Feld name="altcha" mit dem Proof-of-Work.
+  const altchaPayload =
+    document.querySelector('input[name="altcha"]')?.value || "";
+  if (!altchaPayload) {
+    setStatus("Bot-Schutz lädt noch – kurz warten und erneut senden.", "error");
+    document.querySelector("altcha-widget")?.verify?.();
     return;
   }
 
@@ -47,7 +49,7 @@ form.addEventListener("submit", async (e) => {
         email,
         website,
         source: "landing",
-        turnstile_token: turnstileToken,
+        altcha: altchaPayload,
       }),
     });
     if (!res.ok) throw new Error(String(res.status));
@@ -56,7 +58,9 @@ form.addEventListener("submit", async (e) => {
   } catch {
     setStatus("Hat nicht geklappt. Bitte später erneut versuchen.", "error");
     btn.disabled = false;
-    // Token ist einmalig verbraucht → Widget für neuen Versuch zurücksetzen.
-    if (window.turnstile) window.turnstile.reset();
+    // Proof-of-Work ist einmalig verbraucht → Widget neu lösen lassen.
+    const w = document.querySelector("altcha-widget");
+    w?.reset?.();
+    w?.verify?.();
   }
 });
