@@ -52,10 +52,13 @@ Deno.serve(async (req) => {
   if (existing?.status === "confirmed") return json({ ok: true });
 
   if (existing) {
-    await supabase
+    // status zurück auf 'pending' setzen, damit auch abgemeldete Adressen
+    // sich erneut anmelden können (confirm prüft auf status='pending').
+    const { error } = await supabase
       .from("subscribers")
-      .update({ confirm_token: token, consent_ip: ip, user_agent: ua, source })
+      .update({ confirm_token: token, consent_ip: ip, user_agent: ua, source, status: "pending" })
       .eq("id", existing.id);
+    if (error) return json({ error: "server_error" }, 500);
   } else {
     const { error } = await supabase.from("subscribers").insert({
       email, confirm_token: token, consent_ip: ip, user_agent: ua, source,
