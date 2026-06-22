@@ -1,7 +1,7 @@
 // Beide Werte sind public-safe (publishable). Vor Go-Live ausfüllen:
 const SUBSCRIBE_URL =
   "https://ovvnhpbuoylaovkhhpts.supabase.co/functions/v1/subscribe";
-const SUPABASE_ANON_KEY = "PASTE_ANON_KEY_HERE";
+const SUPABASE_ANON_KEY = "sb_publishable_7N8K5w6igS7xzxiN7CZMGg_JYHvt1Lp";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -24,6 +24,15 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
+  // Altcha rendert ein verstecktes Feld name="altcha" mit dem Proof-of-Work.
+  const altchaPayload =
+    document.querySelector('input[name="altcha"]')?.value || "";
+  if (!altchaPayload) {
+    setStatus("Bot-Schutz lädt noch – kurz warten und erneut senden.", "error");
+    document.querySelector("altcha-widget")?.verify?.();
+    return;
+  }
+
   const btn = form.querySelector("button");
   btn.disabled = true;
   setStatus("Senden …", "sending");
@@ -36,7 +45,12 @@ form.addEventListener("submit", async (e) => {
         apikey: SUPABASE_ANON_KEY,
         Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
       },
-      body: JSON.stringify({ email, website, source: "landing" }),
+      body: JSON.stringify({
+        email,
+        website,
+        source: "landing",
+        altcha: altchaPayload,
+      }),
     });
     if (!res.ok) throw new Error(String(res.status));
     card.classList.add("is-done");
@@ -44,5 +58,9 @@ form.addEventListener("submit", async (e) => {
   } catch {
     setStatus("Hat nicht geklappt. Bitte später erneut versuchen.", "error");
     btn.disabled = false;
+    // Proof-of-Work ist einmalig verbraucht → Widget neu lösen lassen.
+    const w = document.querySelector("altcha-widget");
+    w?.reset?.();
+    w?.verify?.();
   }
 });

@@ -16,6 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="styles.css" />
+  <script type="module" src="assets/altcha.min.js"></script>
 </head>
 
 <body>
@@ -33,6 +34,10 @@
           <!-- Honeypot: für Menschen unsichtbar, Bots füllen es aus -->
           <input class="hp" type="text" name="website" tabindex="-1"
                  autocomplete="off" aria-hidden="true" />
+          <!-- Altcha Bot-Schutz (self-hosted Proof-of-Work, kein Drittanbieter) -->
+          <altcha-widget
+            challengeurl="https://ovvnhpbuoylaovkhhpts.supabase.co/functions/v1/altcha-challenge"
+            auto="onload"></altcha-widget>
           <button type="submit">JOIN THE LAUNCH LIST</button>
         </form>
         <p id="signup-status" role="status" aria-live="polite"></p>
