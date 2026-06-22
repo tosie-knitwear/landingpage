@@ -1,0 +1,5 @@
+[functions.subscribe]
+verify_jwt = false
+
+[functions.confirm]
+verify_jwt = false
