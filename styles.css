@@ -1,5 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400&display=swap');
 
+/* Palette derived from the hero knit asset: warm cream, blush rose, soft grey-blue */
+:root {
+  --cream: #f4ece1;
+  --cream-light: #faf6ef;
+  --blush: #f0d8cd;
+  --blush-deep: #e7c6b9;
+  --mist: #ced3d1;
+
+  --ink: #524e48;
+  --ink-soft: #6f6860;
+  --ink-muted: rgba(112, 103, 94, 0.6);
+
+  --veil-top: rgba(250, 246, 239, 0.16);
+  --veil-bottom: rgba(250, 246, 239, 0.36);
+  --card-bg: rgba(248, 244, 237, 0.86);
+  --card-shadow: rgba(91, 78, 65, 0.18);
+  --card-shadow-hover: rgba(91, 78, 65, 0.22);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -7,8 +26,8 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: #f7f2ec;
-  color: #6f6860;
+  background: var(--cream);
+  color: var(--ink-soft);
 }
 
 .landing {
@@ -16,14 +35,14 @@ body {
   display: grid;
   place-items: center;
   padding: 40px 20px;
-  /* fallback color shows if hero.jpg is missing -> no blank flash, no broken layout */
-  background-color: #ece3d6;
+  /* fallback color shows if hero is missing -> no blank flash, no broken layout */
+  background-color: var(--blush);
   background-image:
     linear-gradient(
-      rgba(247, 242, 236, 0.16),
-      rgba(247, 242, 236, 0.36)
+      var(--veil-top),
+      var(--veil-bottom)
     ),
-    url("assets/hero.jpg");
+    url("assets/hero.webp");
   background-size: cover;
   background-position: center;
 }
@@ -41,7 +60,7 @@ h1 {
   font-weight: 300;
   line-height: 0.8;
   letter-spacing: -0.04em;
-  color: rgba(82, 78, 72, 0.9);
+  color: var(--ink);
 }
 
 .claim {
@@ -49,7 +68,7 @@ h1 {
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(22px, 4vw, 36px);
   letter-spacing: 0.38em;
-  color: rgba(112, 103, 94, 0.78);
+  color: var(--ink-soft);
 }
 
 .teaser {
@@ -57,7 +76,7 @@ h1 {
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(24px, 4vw, 38px);
   font-weight: 300;
-  color: rgba(72, 68, 63, 0.88);
+  color: var(--ink);
 }
 
 .qr-card {
@@ -66,18 +85,18 @@ h1 {
   align-items: center;
   gap: 28px;
   padding: 46px 50px 34px;
-  background: rgba(248, 244, 237, 0.86);
+  background: var(--card-bg);
   border-radius: 34px;
-  box-shadow: 0 22px 55px rgba(91, 78, 65, 0.18);
+  box-shadow: 0 22px 55px var(--card-shadow);
   text-decoration: none;
-  color: #8a7d70;
+  color: var(--ink-soft);
   backdrop-filter: blur(4px);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .qr-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 28px 60px rgba(91, 78, 65, 0.22);
+  box-shadow: 0 28px 60px var(--card-shadow-hover);
 }
 
 .qr-card img {
@@ -105,12 +124,12 @@ h1 {
   font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(112, 103, 94, 0.6);
+  color: var(--ink-muted);
   text-decoration: none;
 }
 
 .legal a:hover {
-  color: rgba(112, 103, 94, 0.95);
+  color: var(--ink-soft);
 }
 
 @media (max-width: 600px) {
