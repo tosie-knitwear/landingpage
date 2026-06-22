@@ -24,6 +24,13 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
+  // Cloudflare Turnstile rendert ein verstecktes Feld cf-turnstile-response.
+  const turnstileToken = form["cf-turnstile-response"]?.value || "";
+  if (!turnstileToken) {
+    setStatus("Bitte den Bot-Schutz abschließen.", "error");
+    return;
+  }
+
   const btn = form.querySelector("button");
   btn.disabled = true;
   setStatus("Senden …", "sending");
@@ -36,7 +43,12 @@ form.addEventListener("submit", async (e) => {
         apikey: SUPABASE_ANON_KEY,
         Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
       },
-      body: JSON.stringify({ email, website, source: "landing" }),
+      body: JSON.stringify({
+        email,
+        website,
+        source: "landing",
+        turnstile_token: turnstileToken,
+      }),
     });
     if (!res.ok) throw new Error(String(res.status));
     card.classList.add("is-done");
@@ -44,5 +56,7 @@ form.addEventListener("submit", async (e) => {
   } catch {
     setStatus("Hat nicht geklappt. Bitte später erneut versuchen.", "error");
     btn.disabled = false;
+    // Token ist einmalig verbraucht → Widget für neuen Versuch zurücksetzen.
+    if (window.turnstile) window.turnstile.reset();
   }
 });

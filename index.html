@@ -16,6 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 
 <body>
@@ -33,6 +34,9 @@
           <!-- Honeypot: für Menschen unsichtbar, Bots füllen es aus -->
           <input class="hp" type="text" name="website" tabindex="-1"
                  autocomplete="off" aria-hidden="true" />
+          <!-- Cloudflare Turnstile (Bot-Schutz). Site-Key vor Go-Live setzen. -->
+          <div class="cf-turnstile" data-sitekey="PASTE_TURNSTILE_SITE_KEY"
+               data-theme="light" data-size="flexible"></div>
           <button type="submit">JOIN THE LAUNCH LIST</button>
         </form>
         <p id="signup-status" role="status" aria-live="polite"></p>
