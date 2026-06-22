@@ -25,21 +25,30 @@
       <p class="claim">soft beginnings</p>
       <p class="teaser">A quiet little world is coming.</p>
 
-      <a class="qr-card" href="DEIN_NEWSLETTER_LINK" target="_blank" rel="noopener">
-        <img
-          src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&amp;data=DEIN_NEWSLETTER_LINK"
-          alt="QR-Code zur Newsletter-Anmeldung"
-          width="210"
-          height="210"
-          loading="lazy"
-        />
-        <span>JOIN THE LAUNCH LIST</span>
-      </a>
+      <div class="signup-card">
+        <form id="signup" novalidate>
+          <label class="visually-hidden" for="email">Email-Adresse</label>
+          <input id="email" name="email" type="email" inputmode="email"
+                 autocomplete="email" placeholder="deine@email.de" required />
+          <!-- Honeypot: für Menschen unsichtbar, Bots füllen es aus -->
+          <input class="hp" type="text" name="website" tabindex="-1"
+                 autocomplete="off" aria-hidden="true" />
+          <button type="submit">JOIN THE LAUNCH LIST</button>
+        </form>
+        <p id="signup-status" role="status" aria-live="polite"></p>
+
+        <div class="qr">
+          <img src="assets/qr.svg" alt="QR-Code zu tosie-knitwear.de"
+               width="150" height="150" loading="lazy" />
+          <span>Scannen &amp; teilen</span>
+        </div>
+      </div>
     </div>
 
     <footer class="legal">
       <a href="impressum.html">Impressum</a>
     </footer>
   </main>
+  <script src="assets/signup.js" defer></script>
 </body>
 </html>
