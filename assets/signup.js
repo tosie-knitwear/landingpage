@@ -1,7 +1,7 @@
 // Beide Werte sind public-safe (publishable). Vor Go-Live ausfüllen:
 const SUBSCRIBE_URL =
   "https://ovvnhpbuoylaovkhhpts.supabase.co/functions/v1/subscribe";
-const SUPABASE_ANON_KEY = "PASTE_ANON_KEY_HERE";
+const SUPABASE_ANON_KEY = "sb_publishable_7N8K5w6igS7xzxiN7CZMGg_JYHvt1Lp";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
