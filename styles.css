@@ -1,32 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400&display=swap');
 
-/* Palette derived from the hero knit asset: warm cream, blush rose, soft grey-blue */
+/* tosië – warm cream knit, taupe accents, Playfair Display per Brand-Spec */
 :root {
-  --cream: #f4ece1;
-  --cream-light: #faf6ef;
-  --blush: #f0d8cd;
-  --blush-deep: #e7c6b9;
-  --mist: #ced3d1;
+  --bg-cream: #efe7da;
 
-  --ink: #524e48;
-  --ink-soft: #6f6860;
-  --ink-muted: rgba(112, 103, 94, 0.6);
+  --logo: #6f6f6f;          /* Brand-Spec Headline */
+  --ink: #5b554e;           /* starke Headlines */
+  --ink-soft: #8a817a;      /* Fließtext */
+  --subline-grey: #9a8f83;  /* Subline */
+  --pillar: #7c736b;
 
-  --veil-top: rgba(250, 246, 239, 0.16);
-  --veil-bottom: rgba(250, 246, 239, 0.36);
-  --card-bg: rgba(248, 244, 237, 0.86);
-  --card-shadow: rgba(91, 78, 65, 0.18);
-  --card-shadow-hover: rgba(91, 78, 65, 0.22);
+  --taupe: #b89a85;         /* Button / Akzent */
+  --taupe-deep: #a8866f;    /* Hover */
+  --taupe-text: #978a7e;    /* italic claim */
+
+  --hair: rgba(150, 124, 100, 0.32);
+  --card-bg: rgba(247, 242, 234, 0.82);
+  --field-bg: #fbf8f3;
+
+  --veil-top: rgba(250, 246, 239, 0.20);
+  --veil-bottom: rgba(250, 246, 239, 0.34);
+  --card-shadow: rgba(91, 78, 65, 0.16);
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--cream);
+  background: var(--bg-cream);
   color: var(--ink-soft);
 }
 
@@ -34,101 +36,143 @@ body {
   min-height: 100vh;
   display: grid;
   place-items: center;
-  padding: 40px 20px;
-  /* fallback color shows if hero is missing -> no blank flash, no broken layout */
-  background-color: var(--blush);
+  padding: 56px 22px;
+  background-color: var(--bg-cream);
   background-image:
-    linear-gradient(
-      var(--veil-top),
-      var(--veil-bottom)
-    ),
-    url("assets/hero.webp");
+    linear-gradient(var(--veil-top), var(--veil-bottom)),
+    url("assets/bg.webp");
   background-size: cover;
   background-position: center;
 }
 
 .content {
-  width: min(92vw, 620px);
+  width: min(92vw, 440px);
   text-align: center;
-  transform: translateY(-2vh);
 }
 
-h1 {
+/* ---------- Logo ---------- */
+.logo {
   margin: 0;
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(82px, 15vw, 150px);
-  font-weight: 300;
-  line-height: 0.8;
-  letter-spacing: -0.04em;
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  font-size: clamp(62px, 14vw, 92px);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--logo);
+}
+
+/* ---------- Herzen & feine Linien ---------- */
+.heart {
+  display: block;
+  color: var(--taupe);
+  font-size: 19px;
+  line-height: 1;
+  margin: 24px 0 0;
+}
+
+.rule {
+  display: inline-block;
+  width: 58px;
+  height: 1px;
+  background: var(--hair);
+  vertical-align: middle;
+}
+
+.content > .rule {
+  display: block;
+  margin: 14px auto 0;
+}
+
+/* ---------- Subline ---------- */
+.subline {
+  margin: 28px 0 38px;
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  font-size: clamp(15px, 3.4vw, 19px);
+  letter-spacing: 0.32em;
+  line-height: 1.9;
+  text-transform: uppercase;
+  color: var(--subline-grey);
+}
+
+/* ---------- Signup-Card ---------- */
+.signup-card {
+  padding: 34px 30px 30px;
+  background: var(--card-bg);
+  border-radius: 26px;
+  box-shadow: 0 20px 50px var(--card-shadow);
+  backdrop-filter: blur(4px);
+  text-align: center;
+}
+
+.card-title {
+  margin: 0 0 12px;
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: clamp(17px, 4vw, 21px);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--ink);
 }
 
-.claim {
-  margin: 24px 0 70px;
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(22px, 4vw, 36px);
-  letter-spacing: 0.38em;
+.card-text {
+  margin: 0 0 22px;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.6;
   color: var(--ink-soft);
 }
 
-.teaser {
-  margin: 0 0 70px;
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(24px, 4vw, 38px);
-  font-weight: 300;
-  color: var(--ink);
-}
-
-.signup-card {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 22px;
-  padding: 40px 44px 34px;
-  background: var(--card-bg);
-  border-radius: 34px;
-  box-shadow: 0 22px 55px var(--card-shadow);
-  backdrop-filter: blur(4px);
-}
-
-#signup {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  width: min(78vw, 320px);
-}
+.field { position: relative; width: 100%; }
 
 #signup input[type="email"] {
+  width: 100%;
   font-family: "Inter", sans-serif;
-  font-size: 15px;
-  padding: 14px 18px;
-  border: 1px solid var(--mist);
-  border-radius: 999px;
-  background: var(--cream-light);
+  font-size: 14px;
+  padding: 14px 44px 14px 18px;
+  border: 1px solid var(--hair);
+  border-radius: 12px;
+  background: var(--field-bg);
   color: var(--ink);
-  text-align: center;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.01em;
 }
+
+#signup input[type="email"]::placeholder { color: #b1a89e; }
 
 #signup input[type="email"]:focus {
   outline: none;
-  border-color: var(--blush-deep);
+  border-color: var(--taupe);
+}
+
+.field-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--taupe);
+  pointer-events: none;
+  display: inline-flex;
 }
 
 #signup button {
-  font-family: "Inter", sans-serif;
-  font-size: 13px;
-  letter-spacing: 0.34em;
+  width: 100%;
+  margin-top: 14px;
+  font-family: "Playfair Display", serif;
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   padding: 14px 18px;
   border: none;
-  border-radius: 999px;
-  background: var(--blush-deep);
-  color: var(--ink);
+  border-radius: 12px;
+  background: var(--taupe);
+  color: #fdfbf8;
   cursor: pointer;
   transition: transform 0.2s ease, background 0.2s ease;
 }
 
-#signup button:hover { transform: translateY(-2px); }
+#signup button:hover { background: var(--taupe-deep); transform: translateY(-1px); }
 #signup button:disabled { opacity: 0.6; cursor: default; transform: none; }
 
 /* Honeypot komplett aus dem Blickfeld */
@@ -149,7 +193,7 @@ h1 {
 }
 
 #signup-status {
-  margin: 4px 0 0;
+  margin: 14px 0 0;
   min-height: 1.2em;
   font-family: "Inter", sans-serif;
   font-size: 13px;
@@ -159,58 +203,74 @@ h1 {
 #signup-status[data-state="error"] { color: #b06a5a; }
 #signup-status[data-state="success"] { color: var(--ink); }
 
-/* Erfolg: Form ausblenden, QR bleibt sichtbar */
+/* Erfolg: Form ausblenden, Status bleibt */
 .signup-card.is-done #signup { display: none; }
 
-.qr {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  padding-top: 6px;
-}
-.qr img { width: 150px; height: 150px; display: block; }
-.qr span {
-  font-family: "Inter", sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--ink-muted);
+/* ---------- italic claim ---------- */
+.claim {
+  margin: 44px 0 0;
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(18px, 4vw, 23px);
+  color: var(--taupe-text);
 }
 
+/* ---------- Divider mit Herz ---------- */
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 22px 0 30px;
+}
+.divider .heart { display: inline-block; margin: 0; font-size: 18px; }
+
+/* ---------- Pillars ---------- */
+.pillars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pillars li {
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  font-size: clamp(12px, 3vw, 15px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pillar);
+  padding: 0 18px;
+  line-height: 1.1;
+}
+.pillars li + li { border-left: 1px solid var(--hair); }
+
+/* ---------- Footer: Impressum / Datenschutz (weiß, klein) ---------- */
 .legal {
-  position: fixed;
-  bottom: 18px;
-  left: 0;
-  right: 0;
+  margin-top: 26px;
   text-align: center;
 }
-
 .legal a {
   font-family: "Inter", sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.18em;
+  font-size: 11px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--ink-muted);
+  color: #ffffff;
   text-decoration: none;
+  text-shadow: 0 1px 2px rgba(90, 76, 60, 0.35);
+  opacity: 0.95;
 }
-
-.legal a:hover {
-  color: var(--ink-soft);
+.legal a:hover { opacity: 1; text-decoration: underline; }
+.legal .sep {
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 9px;
+  text-shadow: 0 1px 2px rgba(90, 76, 60, 0.35);
 }
 
 @media (max-width: 600px) {
-  .claim {
-    margin-bottom: 48px;
-  }
-
-  .teaser {
-    margin-bottom: 48px;
-  }
-
-  .signup-card {
-    padding: 32px 28px 28px;
-    border-radius: 28px;
-  }
-  .qr img { width: 130px; height: 130px; }
+  .landing { padding: 44px 20px; }
+  .signup-card { padding: 30px 24px 26px; border-radius: 22px; }
+  .pillars li { padding: 0 13px; }
 }

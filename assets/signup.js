@@ -24,15 +24,6 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
-  // Altcha rendert ein verstecktes Feld name="altcha" mit dem Proof-of-Work.
-  const altchaPayload =
-    document.querySelector('input[name="altcha"]')?.value || "";
-  if (!altchaPayload) {
-    setStatus("Bot-Schutz lädt noch – kurz warten und erneut senden.", "error");
-    document.querySelector("altcha-widget")?.verify?.();
-    return;
-  }
-
   const btn = form.querySelector("button");
   btn.disabled = true;
   setStatus("Senden …", "sending");
@@ -49,7 +40,6 @@ form.addEventListener("submit", async (e) => {
         email,
         website,
         source: "landing",
-        altcha: altchaPayload,
       }),
     });
     if (!res.ok) throw new Error(String(res.status));
@@ -58,9 +48,5 @@ form.addEventListener("submit", async (e) => {
   } catch {
     setStatus("Hat nicht geklappt. Bitte später erneut versuchen.", "error");
     btn.disabled = false;
-    // Proof-of-Work ist einmalig verbraucht → Widget neu lösen lassen.
-    const w = document.querySelector("altcha-widget");
-    w?.reset?.();
-    w?.verify?.();
   }
 });

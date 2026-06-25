@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>tosië – soft beginnings</title>
-  <meta name="description" content="tosië – soft beginnings. A quiet little world is coming. Join the launch list." />
+  <meta name="description" content="tosië – finest knitwear for little ones. A quiet little world is coming. Trage dich in unseren Newsletter ein." />
 
   <!-- Open Graph / social preview -->
   <meta property="og:type" content="website" />
@@ -16,43 +16,69 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="styles.css" />
-  <script type="module" src="assets/altcha.min.js"></script>
 </head>
 
 <body>
   <main class="landing">
     <div class="content">
-      <h1>tosië</h1>
-      <p class="claim">soft beginnings</p>
-      <p class="teaser">A quiet little world is coming.</p>
+      <h1 class="logo">tosië</h1>
+
+      <span class="heart" aria-hidden="true">&#9825;</span>
+      <span class="rule" aria-hidden="true"></span>
+
+      <p class="subline">A&nbsp;Quiet&nbsp;Little&nbsp;World<br />Is&nbsp;Coming.</p>
 
       <div class="signup-card">
         <form id="signup" novalidate>
+          <p class="card-title">Sei von Anfang an dabei.</p>
+          <p class="card-text">
+            Trage dich in unseren Newsletter ein und erfahre
+            als&nbsp;Erste*r, wenn es losgeht.
+          </p>
+
           <label class="visually-hidden" for="email">Email-Adresse</label>
-          <input id="email" name="email" type="email" inputmode="email"
-                 autocomplete="email" placeholder="deine@email.de" required />
+          <div class="field">
+            <input id="email" name="email" type="email" inputmode="email"
+                   autocomplete="email" placeholder="Deine E-Mail-Adresse" required />
+            <span class="field-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none"
+                   stroke="currentColor" stroke-width="1.4"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="M3 7l9 6 9-6" />
+              </svg>
+            </span>
+          </div>
+
           <!-- Honeypot: für Menschen unsichtbar, Bots füllen es aus -->
           <input class="hp" type="text" name="website" tabindex="-1"
                  autocomplete="off" aria-hidden="true" />
-          <!-- Altcha Bot-Schutz (self-hosted Proof-of-Work, kein Drittanbieter) -->
-          <altcha-widget
-            challengeurl="https://ovvnhpbuoylaovkhhpts.supabase.co/functions/v1/altcha-challenge"
-            auto="onload"></altcha-widget>
-          <button type="submit">JOIN THE LAUNCH LIST</button>
+
+          <button type="submit">Anmelden&nbsp;&nbsp;&#9825;</button>
         </form>
         <p id="signup-status" role="status" aria-live="polite"></p>
-
-        <div class="qr">
-          <img src="assets/qr.svg" alt="QR-Code zu tosie-knitwear.de"
-               width="150" height="150" loading="lazy" />
-          <span>Scannen &amp; teilen</span>
-        </div>
       </div>
-    </div>
 
-    <footer class="legal">
-      <a href="impressum.html">Impressum</a>
-    </footer>
+      <p class="claim">Sei von Anfang an dabei.</p>
+
+      <div class="divider" aria-hidden="true">
+        <span class="rule"></span>
+        <span class="heart">&#9825;</span>
+        <span class="rule"></span>
+      </div>
+
+      <ul class="pillars">
+        <li>Gekuschelt.</li>
+        <li>Gehalten.</li>
+        <li>Getragen.</li>
+      </ul>
+
+      <footer class="legal">
+        <a href="impressum.html">Impressum</a>
+        <span class="sep" aria-hidden="true">·</span>
+        <a href="datenschutz.html">Datenschutz</a>
+      </footer>
+    </div>
   </main>
   <script src="assets/signup.js" defer></script>
 </body>
