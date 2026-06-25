@@ -11,6 +11,11 @@ const supabase = createClient(
 const CONFIRM_BASE = `${Deno.env.get("SUPABASE_URL")}/functions/v1/confirm`;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// Rate-Limit (Ersatz für Altcha): Versuche pro IP/Email im Zeitfenster begrenzen.
+const RL_WINDOW_MIN = 60;
+const RL_MAX_PER_IP = 10;
+const RL_MAX_PER_EMAIL = 3;
+
 function json(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
     status,
@@ -45,6 +50,28 @@ Deno.serve(async (req) => {
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null;
   const ua = req.headers.get("user-agent") ?? null;
   const source = payload.source ?? null;
+
+  // Rate-Limit: zu viele gültige Versuche pro IP oder Email im Zeitfenster?
+  const since = new Date(Date.now() - RL_WINDOW_MIN * 60_000).toISOString();
+  if (ip) {
+    const { count } = await supabase
+      .from("signup_attempts")
+      .select("*", { count: "exact", head: true })
+      .eq("ip", ip)
+      .gte("created_at", since);
+    if ((count ?? 0) >= RL_MAX_PER_IP) return json({ error: "rate_limited" }, 429);
+  }
+  {
+    const { count } = await supabase
+      .from("signup_attempts")
+      .select("*", { count: "exact", head: true })
+      .eq("email", email)
+      .gte("created_at", since);
+    if ((count ?? 0) >= RL_MAX_PER_EMAIL) return json({ error: "rate_limited" }, 429);
+  }
+
+  // Versuch protokollieren (Basis fürs Rate-Limit + Abuse-Audit).
+  await supabase.from("signup_attempts").insert({ ip, email });
 
   const { data: existing } = await supabase
     .from("subscribers")
